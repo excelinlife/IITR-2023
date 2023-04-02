@@ -1,0 +1,33 @@
+package com.gl;
+
+public class TeamFormation {
+    public static void main(String[] args) {
+        int N = 4, K = 3, arr[] = {10000, 3, 5, 3};
+        System.out.println(noOfTeams(arr, N, K));
+    }
+    public static int noOfTeams(int[] teams, int n, int size){
+        int min = 0;
+        int max = 500;
+        while (min <= max){
+            int mid = min + (max-min)/2;
+            if (checkIfPossible(teams, mid, size)){
+                if (!checkIfPossible(teams, mid+1, size)){
+                    return mid;
+                } else {
+                    min = mid+1;
+                }
+            } else {
+                max = mid-1;
+            }
+        }
+        return 0;
+    }
+
+    private static boolean checkIfPossible(int[] teams, int n, int size) {
+        int sum = 0;
+        for (int i = 0; i < teams.length; i++) {
+            sum+=Math.min(teams[i], n);
+        }
+        return sum>=n*size;
+    }
+}

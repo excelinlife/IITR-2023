@@ -1,95 +1,87 @@
-function mergeSort(arr){
-    if(arr.length <= 1){
-        return arr;
+// 1->2->3->4->5->null
+function sum(arr,i){
+    if(i>=arr.length){
+        return 0;
     }
-    const mid = parseInt(arr.length/2);
-    const lArr = arr.slice(0, mid);
-    const rArr = arr.slice(mid);
-    return merge(mergeSort(lArr), mergeSort(rArr));
+    return arr[i]+sum(arr,i+1)
 }
-
-function merge(lArr, rArr){
-    const sorted = []
-    while(lArr.length && rArr.length){
-        if(lArr[0]<=rArr[0]){
-            sorted.push(lArr.shift())
-        } else{
-            sorted.push(rArr.shift())
-        }
-    }
-    return[...sorted, ...lArr, ...rArr]
-}
-
-function print(arr){
-    if(arr.length==0){
-        return
-    }
-    else{
-        let temp = arr.pop();
-        console.log(temp) 
-        print(arr) 
-    } 
-}
+// console.log(sum([1,2,3,4,5,6,7],0))
 
 function fact(n){
-    if(n==1){
-        return 1;
-    }
-    return n*fact(n-1);
-}
-
-function fib(n){
     if(n<=2){
         return n;
     }
-    return fib(n-1)+ fib(n-2)
+    return n*fact(n-1);
 }
+// console.log(fact(6))
 
-
-function reverse(str){
-    if(str.length==0){
-        return "";
-    } else{
-        return reverse(str.slice(1))+str[0]
+function show(arr, i){
+    if(i>=arr.length){
+        return;
     }
+    console.log(arr[i]);
+    show(arr,i+1)
+}
+// show([1,2,3,4,5,6,7],0)
+
+function rev(s,i=s.length-1)
+{
+if(i>=0)
+{
+return s[i]+rev(s,--i)
+}
+else return ""
 }
 
 
-function reverse2(str){
-    if(str.length==0){
-        return "";
-    } else{
-        return str[str.length-1]+reverse(str.slice(0, str.length-1))
-    }
-}
-
-function isPalindrome(str, st, end){
-    if(end-st<=1){
-        return true;
+function palindrome(str,st,end){
+    if((end - st<=1)){
+        return true
     } else if(str[st] == str[end]){
-        return isPalindrome(str, st+1, end-1);
+        return palindrome(str, st+1, end-1);
     } else{
         return false;
     }
 }
 
-function recBinSearch(arr, st, end, target){
+
+function recBinary(arr, st, end, val){
     if(st>end){
         return -1;
     } else{
-        let mid = st+Math.floor((end-st)/2)
-        if(target == arr[mid]){
-            return mid;
-        } else if (arr[mid]<target){
-            return recBinSearch(arr, mid+1, end, target)
+        let m = st + parseInt((end-st)/2);
+        if(arr[m] == val){
+            return m;
+        } else if(arr[m]> val){
+            return recBinary(arr, st, m-1,val);
         } else{
-            return recBinSearch(arr, st, mid-1, target)
+            return recBinary(arr, m+1, end,val)
         }
     }
 }
 
+//console.log(recBinary([1,2,3,5,7,8,9,10],0,7,9))
 
 
-const arr = mergeSort([8,30,40, 2 ,1, 5])
- console.log(recBinSearch(arr,0,arr.length-1, 5))
-// reversing
+function printLL(head){
+    if(head == null){
+        return;
+    }
+    console.log(head.data);
+    printLL(head.next);
+}
+
+function fib(n){
+    if(n == 1){
+        return 0;
+    } else if(n==2){
+        return 1;
+    } else{
+        return fib(n-1)+fib(n-2);
+    }
+}
+
+console.log(fib(7))
+// palindrome
+// binary search
+// printing a linkedlist 
